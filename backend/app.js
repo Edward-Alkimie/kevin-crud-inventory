@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require("bcrypt");
-const knex = require('knex')(require('./knexfile')["development"]);
+const env = process.env.NODE_ENV || "development";
+const knex = require('knex')(require('./knexfile')[env]);
 var cors = require('cors')
 
 const app = express();

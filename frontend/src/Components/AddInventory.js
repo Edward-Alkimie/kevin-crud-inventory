@@ -1,4 +1,6 @@
+import config from '../config.js';
 
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
 function AddInventory(){
 
@@ -30,7 +32,7 @@ function handleSubmit(e) {
         "quantity": quantity
     }
 
-    fetch(`http://localhost:4001/inventory`, {
+    fetch(ApiUrl +`/inventory`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'cors',

@@ -1,8 +1,9 @@
 import Context from "../Contexts/Context"
 import React, {useContext, useState, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
+import config from "../config";
 
-
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
 function Login(){
      const {totalUser, setLoginFlag, loginFlag} = useContext(Context);
@@ -21,7 +22,7 @@ function Login(){
             "pass": password
         }
 
-        fetch(`http://localhost:4001/user/login`, {  
+        fetch(ApiUrl+`/user/login`, {  
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             mode: 'cors',

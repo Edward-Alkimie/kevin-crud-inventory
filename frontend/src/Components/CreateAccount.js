@@ -1,5 +1,8 @@
 import { useContext } from 'react'
 import Context from '../Contexts/Context';
+import config from '../config';
+
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
 function CreateAccount(){
     const {totalUser} = useContext(Context);
@@ -41,7 +44,7 @@ function CreateAccount(){
         }
         console.log(data);
     
-        fetch(`http://localhost:4001/user`, {  
+        fetch(ApiUrl + `/user`, {  
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             mode: 'cors',

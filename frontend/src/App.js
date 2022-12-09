@@ -5,9 +5,13 @@ import HeaderBar from './Components/HeaderBar.js'
 import AddInventory from './Components/AddInventory.js';
 import Inventory from './Components/inventory.js'
 import CreateAccount from './Components/CreateAccount.js';
-import Login from './Components/Login.js'
+import Login from './Components/Login.js';
+import config from '../src/config.js';
 
 // import './App.css';
+
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
+// console.log(ApiUrl);
 
 function App() {
   const [totalInventory, setTotalInventory] = useState([]);
@@ -19,14 +23,14 @@ function App() {
   // const [userloading, setUserloading] =useState(true)
 
   useEffect (()=>{
-    fetch('http://localhost:4001/inventory')
+    fetch(ApiUrl+'/inventory')
     .then(inventory=> inventory.json())
     .then(data => setTotalInventory(data))
 
   }, [totalInventory])
 
   useEffect(()=>{
-    fetch('http://localhost:4001/user')
+    fetch(ApiUrl+'/user')
     .then(user=> user.json())
     .then(data => setTotalUser(data))
   }, [totalUser])

@@ -18,7 +18,7 @@ module.exports = {
 
   production:{
     client:'postgresql',
-    connection:process.env.DATAbASE_URL+'?ssl=no-verify',
+    connection:process.env.DATABASE_URL+'?ssl=no-verify',
     pool:{
       min:2,
       max:10

@@ -4,7 +4,7 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('inventory_list').del()
+  // await knex('inventory_list').del()
   await knex('inventory_list').insert([
     { user_id: 1, itemName: "ipod", description:"device to play music", quantity:10},
     { user_id: 2, itemName: "ipad", description:"device to read information", quantity:70},

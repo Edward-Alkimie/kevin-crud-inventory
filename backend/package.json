@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "knex migrate:latest && knex seed:run &&nodemon app.js",
+    "start": "npm install && knex migrate:latest && knex seed:run &&nodemon app.js",
     "start:dev": "kill-port 4001 && nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -4,7 +4,7 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('user_list').del()
+  // await knex('user_list').del()
   await knex('user_list').insert([
     {id: 1, firstName: 'John', lastName: "wick", userName:"johnwick", password:"123456"},
     {id: 2, firstName: 'John1', lastName: "wick1", userName:"johnwick1", password:"123456"},

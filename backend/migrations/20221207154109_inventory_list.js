@@ -7,11 +7,11 @@ exports.up = function(knex) {
     .createTable('inventory_list', function (table) {
         table.increments('id');
         table.integer('user_id');
-        // table.foreign('user_id').references('user_list.id');
+        table.foreign('user_id').references('user_list.id');
         table.string("itemName",255);
         table.string("description", 255);
         table.integer("quantity",10);
-        table.foreign('user_id').references('user_list.id');
+        // table.foreign('user_id').references('user_list.id');
     })
   
 };

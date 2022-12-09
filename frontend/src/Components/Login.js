@@ -1,26 +1,41 @@
 import Context from "../Contexts/Context"
 import React, {useContext, useState, useRef} from 'react'
+import {useNavigate} from 'react-router-dom'
+
+
 
 function Login(){
-     const {totalUser, setLoginFlag} = useContext(Context);
-     const loadingUser = useRef(0);
+     const {totalUser, setLoginFlag, loginFlag} = useContext(Context);
+     const navigate = useNavigate();
+     const result = useRef(0);
+    //  const loadingUser = useRef(0);
+        // const {loginStatus, setLoginStatus} =use
      
      function handleLogin(e){
         e.preventDefault();
         let uname = document.getElementById("uname").value;
-        // loadingUser.current = uname;
-        loadingUser.current =totalUser.filter(user => user.userName===uname);
-        console.log(loadingUser.current.length)
+        let password = document.getElementById("password").value;
 
-        if (loadingUser.current.length === 0){
-            console.log("loadingUser is not defined")
-
-        }else{
-            console.log("user is here")
+        let data ={
+            "userName": uname,
+            "pass": password
         }
 
+        fetch(`http://localhost:4001/user/login`, {  
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors',
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => result.current = data)
 
-     }
+        if ( result.current === "PASSWORDS MATCH"){
+
+            console.log("login in yes")
+            navigate('/');
+        }
+    }
 
 
 
@@ -33,6 +48,7 @@ function Login(){
          <input type="submit" value="Submit" onClick={handleLogin}></input>
         </form>
     )
+
 }
 
 export default Login;

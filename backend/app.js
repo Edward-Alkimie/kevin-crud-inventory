@@ -72,6 +72,36 @@ app.get('/user', (req, res) => {
         })
 })
 ///////////////////////////////////////
+app.post("/user/login", (req, res) => {
+    // verify if a user has entered the right password for their existing account
+    let { body } = req;
+    let { userName, pass } = body;
+    // console.log(userName, pass)
+    
+    function getPasswordHashForUser(userName) {
+        return knex("user_list")
+          .where({ userName })
+          .select(`password`)
+          .then((data) => data[0].password);
+      }
+  
+    getPasswordHashForUser(userName)
+      .then((password) => {
+        // check the entered pass against the hashed one using bcrypt
+        // console.log(`What the user entered on login:`, pass);
+        // console.log(`What the db has stored for that user:`, password);
+        // look up the hashed password for that user
+        compare(pass, password)
+          // return a succeed or fail message, depending on the password being right
+          .then((isMatch) => {
+            if (isMatch) res.status(202).json("PASSWORDS MATCH");
+            else res.status(401).json("NO MATCH");
+          })
+          .catch((err) => res.status(500).json(err));
+      })
+      .catch((err) => res.status(500).json("Unrecognized Username"));
+  });
+
 // authitication only
 // app.get('/user/auc', (req, res) => {
 //     knex('user_list')

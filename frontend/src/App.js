@@ -11,7 +11,7 @@ import config from '../src/config.js';
 // import './App.css';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
-// console.log(ApiUrl);
+console.log(ApiUrl);
 
 function App() {
   const [totalInventory, setTotalInventory] = useState([]);

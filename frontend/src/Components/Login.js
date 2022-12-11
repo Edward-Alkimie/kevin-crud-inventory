@@ -1,5 +1,5 @@
 import Context from "../Contexts/Context"
-import React, {useContext, useState, useRef} from 'react'
+import React, {useContext, useState, useRef, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import config from "../config";
 
@@ -31,12 +31,21 @@ function Login(){
             .then(res => res.json())
             .then(data => result.current = data)
 
+        
+
         if ( result.current === "PASSWORDS MATCH"){
 
             console.log("login in yes")
             navigate('/');
         }
     }
+    useEffect(()=>{
+        if ( result.current === "PASSWORDS MATCH"){
+
+            alert("login successfully");
+            navigate('/');
+        }
+    },[result.current])
 
 
 

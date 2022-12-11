@@ -6,9 +6,13 @@ function HeaderBar(){
     function nav(){
         navigate('/login')
     }
+    function nav2(){
+        navigate('/createaccount')
+    }
     return (
         <div>
             <h2 onClick={nav}>login</h2>
+            <h2 onClick={nav2}>register</h2>
             <h2>home</h2>
             <Search />
         </div>

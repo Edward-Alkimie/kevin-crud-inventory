@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../Contexts/Context';
 import Inventory from './inventory';
@@ -40,6 +40,12 @@ function Search() {
         }
         console.log("inside the searchall", inventoryList)
     }
+
+    // function AssignInventory(individualInventory){
+    //     useEffect(()=>{
+    //         setInventory(individualInventory)
+    //     }, [inventory])
+    // }
  
     return (
         <div>

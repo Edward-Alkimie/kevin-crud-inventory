@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import {useNavigate, useParams} from 'react-router-dom'
 import Context from "../Contexts/Context";
 import config from '../config';
+import cookie from 'cookie'
 
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
@@ -12,9 +13,10 @@ function Inventory(){
     const {returnValue, setReturnValue} = useState(null);
     const navigate = useNavigate();
     const {id} = useParams();
+    let cookiesLogin = cookie.parse(document.cookie);
 
     function DeleteInventory(){
-        if (true){
+        if (cookiesLogin.login==="true" && parseInt(cookiesLogin.userId) === inventory.user_id ){
             fetch(ApiUrl + "/inventory" ,{
                 method: 'DELETE',
                 headers:{'Content-Type': 'application/json'},
@@ -22,18 +24,15 @@ function Inventory(){
                 body: JSON.stringify({"id":id})
             })
             .then(res => setReturnValue(res.statusText))
+            alert("inventory has been deleted");
+            navigate('/');
+            window.location.reload();
         }
         else{
             alert("you do not have the permission to delete")
         }
     }
 
-    useEffect(()=>{
-        if (returnValue){
-            alert("inventory has been deleted");
-            navigate('/');
-        }
-    }, [returnValue])
     console.log(id);
     console.log(inventory);
     return(

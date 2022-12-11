@@ -7,6 +7,8 @@ import Inventory from './Components/inventory.js'
 import CreateAccount from './Components/CreateAccount.js';
 import Login from './Components/Login.js';
 import config from '../src/config.js';
+import Search from './Components/Search';
+import Home from './Components/Home';
 
 // import './App.css';
 
@@ -19,6 +21,7 @@ function App() {
   const [selectUser, setSelectUser] = useState("all");
   const [inventory, setInventory] = useState([]);
   const [loginFlag, setLoginFlag] = useState(false);
+  
   // const [loading, setLoading] = useState(true);
   // const [userloading, setUserloading] =useState(true)
 
@@ -39,19 +42,20 @@ function App() {
     <div className="App">
 
       <header className="App-header">
-        hello inventory1
       </header>
       <Context.Provider value ={{totalInventory, setTotalInventory, 
                                   totalUser, selectUser, 
                                   setSelectUser, inventory, 
                                   setInventory, loginFlag ,setLoginFlag}}>
       <BrowserRouter>
+
       <Routes>
-        <Route path='/' element={<HeaderBar/>}/>
+        <Route path='/' element={<Home/>}/>
         <Route path='/add' element={<AddInventory/>}/>
         <Route path='/inventory/:id' element={<Inventory/>}/>
         <Route path='/createaccount' element={<CreateAccount/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/search' element={<Search/>}/>
       </Routes>
 
       </BrowserRouter>

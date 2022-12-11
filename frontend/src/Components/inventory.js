@@ -14,7 +14,7 @@ function Inventory(){
     const {id} = useParams();
 
     function DeleteInventory(){
-        if (false){
+        if (true){
             fetch(ApiUrl + "/inventory" ,{
                 method: 'DELETE',
                 headers:{'Content-Type': 'application/json'},

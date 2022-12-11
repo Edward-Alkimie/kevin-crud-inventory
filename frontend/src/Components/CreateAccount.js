@@ -2,6 +2,7 @@ import { useContext, useRef, useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router';
 import Context from '../Contexts/Context';
 import config from '../config';
+import HeaderBar from './HeaderBar';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
@@ -49,6 +50,8 @@ function CreateAccount() {
         }}, [returnInfo.current])
 
 return (
+    <div>
+    <HeaderBar/>
     <form>
         <label >First name:</label><br />
         <input type="text" id="fname" name="fname" /><br />
@@ -60,6 +63,7 @@ return (
         <input type="text" id="pass" name="pass" /><br />
         <input type="submit" value="Submit" onClick={handleSubmit}></input>
     </form>
+    </div>
 
 )
 }

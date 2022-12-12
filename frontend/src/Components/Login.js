@@ -56,11 +56,12 @@ function Login(){
             mode: 'cors',
             body: JSON.stringify(data)
         }).then(res => res.json())
-        // console.log(res)
+        console.log(res)
         if ( res === "PASSWORDS MATCH"){
+            console.log(totalUser);
 
             let userLoginCurrent = totalUser.filter(user => user.userName === loadingUser.current)
-            // console.log(userLoginCurrent);
+            console.log(userLoginCurrent);
 
             document.cookie = 'login=true'
             document.cookie = `userId=${userLoginCurrent[0].id}`

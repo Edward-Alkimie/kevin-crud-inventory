@@ -38,6 +38,17 @@ function AddInventory() {
             "quantity": quantity
         }
 
+        // const res = await fetch(ApiUrl + `/inventory`, {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     mode: 'cors',
+        //     body: JSON.stringify(data)
+        // })
+        // console.log(res)
+        // await refreshInventory();
+        // navigate('/')
+           
+
         fetch(ApiUrl + `/inventory`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -45,7 +56,7 @@ function AddInventory() {
             body: JSON.stringify(data)
         })
             .then(res => console.log(res))
-            .then(refreshInventory)
+            .then(()=>refreshInventory())
             .then(()=>navigate('/'));
 
         // navigate('/');

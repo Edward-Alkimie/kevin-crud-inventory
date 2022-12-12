@@ -16,7 +16,7 @@ function Inventory(){
     const {id} = useParams();
     let cookiesLogin = cookie.parse(document.cookie);
 
-    function DeleteInventory(){
+    async function DeleteInventory(){
         if (cookiesLogin.login==="true" && parseInt(cookiesLogin.userId) === inventory.user_id ){
             fetch(ApiUrl + "/inventory" ,{
                 method: 'DELETE',
@@ -25,7 +25,10 @@ function Inventory(){
                 body: JSON.stringify({"id":id})
             })
             .then(res => setReturnValue(res.statusText))
-            .then(()=>refreshInventory())
+            .then(()=>console.log(returnValue))
+
+            await refreshInventory();
+            await refreshInventory();
             alert("inventory has been deleted");
             // refreshInventory();
             navigate('/');

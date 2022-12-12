@@ -77,8 +77,7 @@ function Search() {
                 {/* <input type="submit" value="Submit"></input> */}
                 <Manager htmlFor="managerSelect">Select Manager:</Manager>&emsp;
                 <select className="managerSelect" onClick={userFilter} defaultValue= {cookieInfo?.userId?.toString()}>
-                    {/* {()=>CheckLogin} */}
-                    {/* <option   key={cookieInfo.userId}> Current:{cookieInfo.userName} </option> */}
+                {/* <select className="managerSelect" onClick={userFilter}> */}
 
                     <option value="all">All</option>
                     {totalUser.map(user => {

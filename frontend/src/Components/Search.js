@@ -1,38 +1,52 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../Contexts/Context';
-import Inventory from './inventory';
+import cookie from 'cookie';
+import styled from 'styled-components';
+
+const Div1 = styled.div`
+    // grid-template-columns: 0fr 1fr 0fr; 
+`
+const Body = styled.h2`
+    background-color:#eee;
+    color:#444;
+    font-family:sans-serif;    
+  `
+const Manager = styled.label`
+    font-size: 25px;
+    font-family: sans-serif;
+
+`
+
 
 function Search() {
     const { totalInventory, totalUser,setSelectUser,selectUser, setInventory, inventory} = useContext(Context);
-    // console.log("inside the search page return total Inventory", totalInventory);
-    // console.log("inside the search page return total user", totalUser);
     const [inventoryList, setInventoryList] = useState(totalInventory);
-    // const [userList, setUserList] = useState([]);
-    // console.log("inside the search page return inventoryList", inventoryList);
+    const cookieInfo = cookie.parse(document.cookie);
 
     function userFilter(e){
         let userFilterId = e.currentTarget.value;
+
         console.log("this is userFitler", userFilterId);
         setSelectUser(userFilterId);
         console.log('this is ', selectUser)
 
-        if (userFilterId === "all"){
-            setInventoryList(totalInventory);
-        }
-        else{
-            console.log('userFilter->',selectUser)
-            setInventoryList(totalInventory.filter(item =>item.user_id === parseInt(userFilterId)))
-        }
+        // if (userFilterId === "all"){
+        //     setInventoryList(totalInventory);
+        // }
+        // else{
+        //     console.log('userFilter->',selectUser)
+        //     setInventoryList(totalInventory.filter(item =>item.user_id === parseInt(userFilterId)))
+        // }
     }
 
     function searchAll(e) {
         const searchString = e.currentTarget.value;
         console.log("here is the search string", searchString);
         // let newArray = totalInventory;
-        if (searchString){
+        if (!searchString){
             console.log("this is searchstring:",typeof(searchString))
-            setInventoryList(inventoryList);
+            setInventoryList(totalInventory);
 
         }else{
             let newArray = inventoryList.filter(item => item.itemName.toLowerCase().includes(searchString))
@@ -41,48 +55,66 @@ function Search() {
         console.log("inside the searchall", inventoryList)
     }
 
-    // function AssignInventory(individualInventory){
-    //     useEffect(()=>{
-    //         setInventory(individualInventory)
-    //     }, [inventory])
-    // }
+    function CheckLogin(){
+            return (
+                <option value="current manager" key={cookieInfo.userId}> Current:{cookieInfo.userName} </option>
+            )
+        // console.log(cookieInfo.login)
+        // if (true){
+            // setInventoryList(totalInventory.filter(item =>item.user_id === parseInt(cookie.userId)));
+
+        // }
+    }
+    useEffect(()=>{
+        CheckLogin();
+    },[])
+
  
     return (
         <div>
+            {/* <HeaderBar/> */}
             <form>
                 {/* <input type="submit" value="Submit"></input> */}
-                <label htmlFor="managerSelect">Select Manager:</label>&emsp;
-                
-                
-                <select className="managerSelect" onChange={userFilter}>
+                <Manager htmlFor="managerSelect">Select Manager:</Manager>&emsp;
+                <select className="managerSelect" onClick={userFilter} defaultValue= {cookieInfo?.userId?.toString()}>
+                    {/* {()=>CheckLogin} */}
+                    {/* <option   key={cookieInfo.userId}> Current:{cookieInfo.userName} </option> */}
+
                     <option value="all">All</option>
                     {totalUser.map(user => {
                         return (
-                            <option key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>
+                            <option key={user.id} value={user.id} onClick={userFilter}> {user.firstName} {user.lastName}</option>
                         )
                     })}
                     
                 </select>
-            
-             
                 <input id="searchbar" onChange={searchAll} type="text"
                     name="search" placeholder="Search inventory.."></input>
                 <input type="submit" value="Submit" />
             </form>
-            <h2 className="inventoryInfo">{inventoryList?.map(individualInventory => {
+
+
+            
+            {/* <h3>InventoryId</h3>
+            <h3>Item Name</h3>
+            <h3>description</h3>
+            <h3>quantity</h3> */}
+
+            <div className="inventoryInfo">{inventoryList?.filter(item =>item.user_id.toString() === selectUser).map(individualInventory => {
                 return (
-                <ul className='listofinventory' key={"class"+individualInventory.id}>
-                    <Link to={`/inventory/${individualInventory.id}`} onClick={()=>setInventory(individualInventory)}>
-                        <li key={individualInventory.id} >
-                            {/* {inventory.itemName}| */}
-                            {individualInventory.id}|
-                            {individualInventory.itemName}|
-                            {individualInventory.description} |
-                            {individualInventory.quantity}</li>
+                <Body className='listofinventory' key={"class"+individualInventory.id}>
+
+                    <Link to={`/inventory/${individualInventory.id}`} style={{textDecoration: 'none'}} onClick={()=>setInventory(individualInventory)}>
+                        <div className="content" key={individualInventory.id} >
+                            <a data-label="InventoryId">{individualInventory.id} </a>
+                            <a data-label="Item Name">{individualInventory.itemName} </a>
+                            <a data-label="description">{individualInventory.description} </a>
+                            <a data-label="quantity">{individualInventory.quantity} </a>
+                        </div>
                     </Link>
-                </ul>
+                </Body>
                 )
-            })}</h2>
+            })}</div>
 
         </div>
 

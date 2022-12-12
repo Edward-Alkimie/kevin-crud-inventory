@@ -25,18 +25,22 @@ function App() {
   // const [loading, setLoading] = useState(true);
   // const [userloading, setUserloading] =useState(true)
 
-  useEffect (()=>{
-    fetch(ApiUrl+'/inventory')
+ async function refreshInventory(){
+    return fetch(ApiUrl+'/inventory')
     .then(inventory=> inventory.json())
     .then(data => setTotalInventory(data))
 
-  }, [totalInventory])
+  }
+
+  useEffect (()=>{
+    refreshInventory();
+  }, [])
 
   useEffect(()=>{
     fetch(ApiUrl+'/user')
     .then(user=> user.json())
     .then(data => setTotalUser(data))
-  }, [totalUser])
+  }, [])
     
   return (
     <div className="App">
@@ -46,7 +50,7 @@ function App() {
       <Context.Provider value ={{totalInventory, setTotalInventory, 
                                   totalUser, selectUser, 
                                   setSelectUser, inventory, 
-                                  setInventory, loginFlag ,setLoginFlag}}>
+                                  setInventory, loginFlag ,setLoginFlag, refreshInventory}}>
       <BrowserRouter>
 
       <Routes>

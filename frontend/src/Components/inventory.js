@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import {useNavigate, useParams} from 'react-router-dom'
 import Context from "../Contexts/Context";
+import HeaderBar from './HeaderBar.js';
 import config from '../config';
 import cookie from 'cookie'
 
@@ -9,7 +10,7 @@ import cookie from 'cookie'
 
 function Inventory(){
     const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
-    const {inventory} = useContext(Context);
+    const {inventory, refreshInventory} = useContext(Context);
     const {returnValue, setReturnValue} = useState(null);
     const navigate = useNavigate();
     const {id} = useParams();
@@ -24,12 +25,14 @@ function Inventory(){
                 body: JSON.stringify({"id":id})
             })
             .then(res => setReturnValue(res.statusText))
+            .then(()=>refreshInventory())
             alert("inventory has been deleted");
+            // refreshInventory();
             navigate('/');
-            window.location.reload();
+            // window.location.reload();
         }
         else{
-            alert("you do not have the permission to delete")
+            alert("you are not login to the proper manager to delete this data")
         }
     }
 
@@ -37,6 +40,7 @@ function Inventory(){
     console.log(inventory);
     return(
         <div>
+            <HeaderBar/>
             here is the product!!!!  
             <h1>{inventory.itemName} <br/>
                 {inventory.description} <br/>

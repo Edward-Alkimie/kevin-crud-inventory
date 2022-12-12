@@ -2,7 +2,7 @@ import Context from "../Contexts/Context"
 import React, {useContext, useState, useRef, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import config from "../config";
-import HeaderBar from "./HeaderBar"
+import HeaderBar from "./HeaderBar.js"
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 

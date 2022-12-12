@@ -4,6 +4,33 @@ import cookie from 'cookie';
 import { useNavigate } from 'react-router';
 import { useContext } from 'react';
 import Context from '../Contexts/Context.js'
+import styled from 'styled-components';
+
+const Form = styled.form`
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+`
+
+const Input =styled.input`
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;    
+`
+const Submit = styled.button`
+    width: 30%;
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+`
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
@@ -38,17 +65,7 @@ function AddInventory() {
             "quantity": quantity
         }
 
-        // const res = await fetch(ApiUrl + `/inventory`, {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     mode: 'cors',
-        //     body: JSON.stringify(data)
-        // })
-        // console.log(res)
-        // await refreshInventory();
-        // navigate('/')
-           
-
+        
         fetch(ApiUrl + `/inventory`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -59,22 +76,18 @@ function AddInventory() {
             .then(()=>refreshInventory())
             .then(()=>navigate('/'));
 
-        // navigate('/');
-
-        // window.location.reload();
-
     }
 
     return (
         <div className="inventoryInput">
             <HeaderBar />
-            <form>
-                <label htmlFor="addInventory"> add a new Inventory</label>
-                <input type="text" id="itemNameID" placeholder="item name"></input>
-                <input type="text" id="descriptionID" placeholder="description"></input>
-                <input type="number" id="quantityID" placeholder="quantity"></input>
-                <input type="submit" value="Submit" onClick={handleSubmit}></input>
-            </form>
+            <Form>
+                <label htmlFor="addInventory">New Inventory</label>
+                <Input type="text" id="itemNameID" placeholder="item name"></Input>
+                <Input type="text" id="descriptionID" placeholder="description"></Input>
+                <Input type="number" id="quantityID" placeholder="quantity"></Input>
+                <Submit type="submit" value="Submit" onClick={handleSubmit}>submit</Submit>
+            </Form>
         </div>
     )
 }

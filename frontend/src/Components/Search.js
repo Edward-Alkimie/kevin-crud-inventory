@@ -15,8 +15,34 @@ const Body = styled.h2`
 const Manager = styled.label`
     font-size: 25px;
     font-family: sans-serif;
-
 `
+
+const Form = styled.form`
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+`
+
+const Input =styled.input`
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;    
+`
+const Submit = styled.button`
+    width: 30%;
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+`
+
 
 
 function Search() {
@@ -31,13 +57,6 @@ function Search() {
         setSelectUser(userFilterId);
         console.log('this is ', selectUser)
 
-        // if (userFilterId === "all"){
-        //     setInventoryList(totalInventory);
-        // }
-        // else{
-        //     console.log('userFilter->',selectUser)
-        //     setInventoryList(totalInventory.filter(item =>item.user_id === parseInt(userFilterId)))
-        // }
     }
 
     function searchAll(e) {
@@ -73,7 +92,7 @@ function Search() {
     return (
         <div>
             {/* <HeaderBar/> */}
-            <form>
+            <Form>
                 {/* <input type="submit" value="Submit"></input> */}
                 <Manager htmlFor="managerSelect">Select Manager:</Manager>&emsp;
                 <select className="managerSelect" onClick={userFilter} defaultValue= {cookieInfo?.userId?.toString()}>
@@ -89,8 +108,8 @@ function Search() {
                 </select>
                 <input id="searchbar" onChange={searchAll} type="text"
                     name="search" placeholder="Search inventory.."></input>
-                <input type="submit" value="Submit" />
-            </form>
+                <submit type="submit" value="Submit" />
+            </Form>
 
 
             

@@ -35,11 +35,14 @@ function App() {
   useEffect (()=>{
     refreshInventory();
   }, [])
+  async function refreshUserlist() {
+    return fetch(ApiUrl + '/user')
+      .then(user => user.json())
+      .then(data => setTotalUser(data))
+  }
 
   useEffect(()=>{
-    fetch(ApiUrl+'/user')
-    .then(user=> user.json())
-    .then(data => setTotalUser(data))
+    refreshUserlist();
   }, [])
     
   return (
@@ -50,7 +53,9 @@ function App() {
       <Context.Provider value ={{totalInventory, setTotalInventory, 
                                   totalUser, selectUser, 
                                   setSelectUser, inventory, 
-                                  setInventory, loginFlag ,setLoginFlag, refreshInventory}}>
+                                  setInventory, loginFlag ,
+                                  setLoginFlag, refreshInventory, 
+                                  refreshUserlist}}>
       <BrowserRouter>
 
       <Routes>

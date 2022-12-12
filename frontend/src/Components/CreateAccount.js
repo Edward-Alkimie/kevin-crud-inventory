@@ -35,7 +35,7 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
 
 function CreateAccount() {
-    const {refreshInventory} = useContext(Context);
+    const {refreshInventory,refreshUserlist} = useContext(Context);
 
     const navigate = useNavigate();
     const returnInfo = null;
@@ -67,8 +67,7 @@ function CreateAccount() {
         console.log('res:', res)
 
             if (res) {
-                await refreshInventory();
-                // await refreshInventory();
+                await refreshUserlist();
                 alert("account create successfully");
 
                 navigate('/');

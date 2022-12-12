@@ -17,11 +17,12 @@ const Manager = styled.label`
     font-family: sans-serif;
 `
 
-// const Form = styled.form`
-//     border-radius: 5px;
-//     background-color: #f2f2f2;
-//     padding: 20px;
-// `
+const Form = styled.form`
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    font-size; 30px;
+`
 
 // const Input =styled.input`
 //     width: 30%;
@@ -50,7 +51,7 @@ function Search() {
     const [inventoryList, setInventoryList] = useState(totalInventory);
     const cookieInfo = cookie.parse(document.cookie);
 
-    console.log(totalInventory)
+    console.log(totalInventory);
 
     function userFilter(e){
 
@@ -58,7 +59,8 @@ function Search() {
 
         console.log("this is userFitler", userFilterId);
         setSelectUser(userFilterId);
-        console.log('this is ', selectUser)
+        // let new11 = inventoryList.filter(item =>item.user_id.toString() === selectUser)
+        // console.log('this is ', new11)
 
     }
 
@@ -95,10 +97,10 @@ function Search() {
     return (
         <div>
             {/* <HeaderBar/> */}
-            <form>
+            <Form>
                 {/* <input type="submit" value="Submit"></input> */}
                 <Manager htmlFor="managerSelect">Select Manager:</Manager>&emsp;
-                <select className="managerSelect" onClick={userFilter} defaultValue= {cookieInfo?.userId?.toString()}>
+                <select className="managerSelect" onChange={userFilter} defaultValue = {cookieInfo?.userId?.toString()}>
                 {/* <select className="managerSelect" onClick={userFilter}> */}
 
                     <option value="all">All</option>
@@ -112,13 +114,13 @@ function Search() {
                 <input id="searchbar" onChange={searchAll} type="text"
                     name="search" placeholder="Search inventory.."></input>
                 {/* <submit type="submit" value="Submit" /> */}
-            </form>
+            </Form>
 
-            <div className="inventoryInfo">{inventoryList.filter(item =>item.user_id.toString() === selectUser).map(individualInventory => {
+            <div className="inventoryInfo">{inventoryList?.filter(item =>item.user_id.toString() === selectUser)?.map(individualInventory => {
                 return (
                 <h2 className='listofinventory' key={"class"+individualInventory.id}>
 
-                    <Link to={`/inventory/${individualInventory.id}`} style={{textDecoration: 'none'}} onChange={()=>setInventory(individualInventory)}>
+                    <Link to={`/inventory/${individualInventory.id}`} style={{textDecoration: 'none'}} onClick={()=>setInventory(individualInventory)}>
                         <div className="content" key={individualInventory.id} >
                             <a data-label="InventoryId">{individualInventory.id} </a>
                             <a data-label="Item Name">{individualInventory.itemName} </a>

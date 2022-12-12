@@ -6,10 +6,10 @@ import HeaderBar from './HeaderBar.js';
 import config from '../config';
 import cookie from 'cookie'
 
-// const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
 
 function Inventory(){
-    const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
+    // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl
     const {inventory, refreshInventory} = useContext(Context);
     const {returnValue, setReturnValue} = useState(null);
     const navigate = useNavigate();

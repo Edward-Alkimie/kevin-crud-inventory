@@ -29,12 +29,12 @@ function App() {
     return fetch(ApiUrl+'/inventory')
     .then(inventory=> inventory.json())
     .then(data => setTotalInventory(data))
-
   }
 
   useEffect (()=>{
     refreshInventory();
   }, [])
+
   async function refreshUserlist() {
     return fetch(ApiUrl + '/user')
       .then(user => user.json())
